@@ -52,11 +52,11 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  // Create slug for Strapi posts
+  // Create slug field for Strapi posts
   if (node.internal.type === `StrapiPosts`) {
     const slugify_title = slugify(node.title, {
       replacement: '-', // replace spaces with replacement
-      remove: null, // regex to remove characters
+      remove: /[,*+~.()'"!:@]/g, // regex to remove characters
       lower: true, // result in lower case
     })
 

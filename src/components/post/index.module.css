@@ -1,7 +1,15 @@
-.postTitle {
+.title {
   color: blue;
 }
 
+.title a {
+  text-decoration: none;
+}
+
+.content {
+  padding: 20px;
+}
+
 .author {
-  font-size: 30px;
+  font-size: 14px;
 }

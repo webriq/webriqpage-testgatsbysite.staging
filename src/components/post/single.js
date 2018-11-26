@@ -10,6 +10,7 @@ export default ({ data }) => {
       head={{
         title: data.strapiPosts.title,
         meta: {
+          title: data.strapiPosts.metaTitle,
           keywords: data.strapiPosts.metaKeywords,
           description: data.strapiPosts.metaDescription,
         },
@@ -38,6 +39,7 @@ export const query = graphql`
       fields {
         slug
       }
+      metaTitle
       metaKeywords
       metaDescription
     }

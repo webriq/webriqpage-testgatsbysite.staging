@@ -4,24 +4,11 @@ import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from '../components/header'
+import Footer from '../components/footer'
 import './index.css'
 
 const Layout = ({ head, children }) => (
   <StaticQuery
-    query={graphql`
-      query siteQuery {
-        site {
-          siteMetadata {
-            title
-            name
-            meta {
-              keywords
-              description
-            }
-          }
-        }
-      }
-    `}
     render={data => (
       <>
         <Helmet
@@ -58,8 +45,23 @@ const Layout = ({ head, children }) => (
         >
           {children}
         </div>
+        <Footer />
       </>
     )}
+    query={graphql`
+      query siteQuery {
+        site {
+          siteMetadata {
+            title
+            name
+            meta {
+              keywords
+              description
+            }
+          }
+        }
+      }
+    `}
   />
 )
 
