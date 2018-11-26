@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-
-import Layout from '../components/layouts/default'
+import Layout from '../layouts'
 
 const AboutPage = () => (
   <Layout head={{ title: 'Page 2' }}>

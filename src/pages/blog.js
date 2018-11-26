@@ -1,7 +1,6 @@
 import React from 'react'
-
-import Layout from '../components/layouts/default'
-import BlogList from '../components/post/index'
+import Layout from '../layouts'
+import BlogList from '../components/post'
 
 const BlogPage = () => (
   <Layout head={{ title: 'Blog Page' }}>

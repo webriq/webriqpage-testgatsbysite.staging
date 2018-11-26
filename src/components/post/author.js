@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'lodash'
+import get from 'lodash/get'
 import indexStyles from './index.module.css'
 
 export default ({ users, userId }) => {
@@ -9,8 +9,8 @@ export default ({ users, userId }) => {
 
   return (
     <small className={indexStyles.author}>
-      {_.get(author, 'node.profile.firstname')}{' '}
-      {_.get(author, 'node.profile.lastname')}
+      {get(author, 'node.profile.firstname')}{' '}
+      {get(author, 'node.profile.lastname')}
     </small>
   )
 }

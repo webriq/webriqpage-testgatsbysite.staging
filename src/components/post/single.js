@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Layout from '../../components/layouts/default'
+import Layout from '../../layouts'
 import ReactMarkdown from 'react-markdown'
-
-import DEBUG from '../../utils/debug/index'
+import DEBUG from '../../utils/debug'
 
 export default ({ data }) => {
   return (
@@ -27,7 +26,20 @@ export default ({ data }) => {
 export const query = graphql`
   query($id: String!) {
     strapiPosts(id: { eq: $id }) {
-      ...PostSingleFragment
+      id
+      title
+      body
+      excerpt
+      author {
+        id
+        email
+        profile
+      }
+      fields {
+        slug
+      }
+      metaKeywords
+      metaDescription
     }
   }
 `

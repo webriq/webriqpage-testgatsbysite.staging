@@ -11,7 +11,15 @@ const PostList = () => (
         allStrapiPosts(sort: { fields: [createdAt], order: DESC }) {
           edges {
             node {
-              ...PostsListFragment
+              id
+              title
+              excerpt
+              fields {
+                slug
+              }
+              author {
+                id
+              }
             }
           }
         }
