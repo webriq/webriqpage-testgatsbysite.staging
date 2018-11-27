@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import Layout from '../layouts'
 
 const IndexPage = () => (
-  <Layout head={{ name: 'Custom Name' }}>
+  <Layout>
     <h1>Hello team!</h1>
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>

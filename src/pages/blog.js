@@ -3,7 +3,7 @@ import Layout from '../layouts'
 import BlogList from '../components/post'
 
 const BlogPage = () => (
-  <Layout head={{ title: 'Blog Page' }}>
+  <Layout head={{ title: 'Blog' }}>
     <BlogList />
   </Layout>
 )

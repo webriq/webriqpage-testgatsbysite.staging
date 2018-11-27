@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
+import get from 'lodash/get'
 
 import Header from '../components/header'
 import Footer from '../components/footer'
@@ -9,45 +10,49 @@ import './index.css'
 
 const Layout = ({ head, children }) => (
   <StaticQuery
-    render={data => (
-      <>
-        <Helmet
-          title={
-            ((head && head.title) || data.site.siteMetadata.title) +
-            ' - ' +
-            ((head && head.name) || data.site.siteMetadata.name)
-          }
-          meta={[
-            {
-              name: 'description',
-              content:
-                (head && head.meta && head.meta.description) ||
-                data.site.siteMetadata.meta.description,
-            },
-            {
-              name: 'keywords',
-              content:
-                (head && head.meta && head.meta.keywords) ||
-                data.site.siteMetadata.meta.keywords,
-            },
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div
-          style={{
-            margin: '0 auto',
-            maxWidth: 960,
-            padding: '0px 1.0875rem 1.45rem',
-            paddingTop: 0,
-          }}
-        >
-          {children}
-        </div>
-        <Footer />
-      </>
-    )}
+    render={data => {
+      const siteTitle =
+        get(head, 'title') || get(data, 'site.siteMetadata.title')
+      const siteName = get(head, 'name') || get(data, 'site.siteMetadata.name')
+      const siteMetaDescription =
+        get(head, 'meta.description') ||
+        get(data, 'site.siteMetadata.meta.description')
+      const siteMetaKeywords =
+        get(head, 'meta.keywords') ||
+        get(data, 'site.siteMetadata.meta.keywords')
+
+      return (
+        <>
+          <Helmet
+            title={siteTitle + ' - ' + siteName}
+            meta={[
+              {
+                name: 'description',
+                content: siteMetaDescription,
+              },
+              {
+                name: 'keywords',
+                content: siteMetaKeywords,
+              },
+            ]}
+          >
+            <html lang="en" />
+          </Helmet>
+          <Header siteTitle={siteName} />
+          <div
+            style={{
+              margin: '0 auto',
+              maxWidth: 960,
+              padding: '0px 1.0875rem 1.45rem',
+              paddingTop: 0,
+            }}
+          >
+            {children}
+          </div>
+          <Footer />
+        </>
+      )
+    }}
     query={graphql`
       query siteQuery {
         site {

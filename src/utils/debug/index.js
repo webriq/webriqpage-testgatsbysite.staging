@@ -1,12 +1,12 @@
 import React from 'react'
-import ReactJson from 'react-json-view'
 import style from './index.module.css'
+import JSONTree from 'react-json-tree'
 
 export default ({ data }) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' && typeof window !== `undefined`) {
     return (
       <div className={style.debug}>
-        <ReactJson src={data} collapsed={true} name="DEBUG" />
+        <JSONTree data={data} />
       </div>
     )
   }

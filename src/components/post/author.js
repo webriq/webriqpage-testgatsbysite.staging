@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
-import indexStyles from './index.module.css'
+import style from './index.module.css'
 
 export default ({ users, userId }) => {
   const author = users.find(user => {
@@ -8,7 +8,7 @@ export default ({ users, userId }) => {
   })
 
   return (
-    <small className={indexStyles.author}>
+    <small className={style.author}>
       {get(author, 'node.profile.firstname')}{' '}
       {get(author, 'node.profile.lastname')}
     </small>
