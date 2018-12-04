@@ -93,7 +93,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 // Write site admin URL on post build
 exports.onPostBuild = () => {
-  console.log(process.env)
   fs.writeFile('./public/site.json', JSON.stringify({ "siteAdminUrl": process.env.API_URL + '/admin' }), 'utf8', function(err) {
     console.log(err)
   })
