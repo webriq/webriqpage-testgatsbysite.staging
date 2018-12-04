@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Layout from '../layouts'
+import Layout from '../../layouts'
 import ReactMarkdown from 'react-markdown'
-import DEBUG from '../utils/debug'
+import DEBUG from '../../utils/debug'
 
+/**
+ * Single post template
+ */
 export default ({ data }) => {
   return (
     <Layout

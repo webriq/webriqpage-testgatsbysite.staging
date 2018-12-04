@@ -1,0 +1,18 @@
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0px;
+}
+
+.navItem {
+  margin: 0;
+}
+
+  .navLink {
+    padding: 20px;
+    text-decoration: none;
+    margin-bottom: 20px;
+  }

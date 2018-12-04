@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
-import style from './index.module.css'
+import style from './author.module.css'
 
 export default ({ users, userId }) => {
   const author = users.find(user => {

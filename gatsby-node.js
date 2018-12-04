@@ -1,5 +1,6 @@
 const path = require('path')
 const slugify = require('slugify')
+const fs = require('fs')
 
 const makeRequest = (graphql, request) =>
   new Promise((resolve, reject) => {
@@ -39,30 +40,32 @@ exports.createPages = ({ graphql, actions }) => {
     result.data.allStrapiPosts.edges.forEach(({ node }) => {
       createPage({
         path: `/${node.fields.slug}`,
-        component: path.resolve(`./src/templates/blog-post.js`),
+        component: path.resolve(`./src/templates/post/single.js`),
         context: {
           id: node.id,
         },
       })
     })
 
-    // Create paginated posts
-    const posts = result.data.allStrapiPosts.edges.map(post => post.node)
-    const postsPerPage = 2
-    const numPages = Math.ceil(posts.length / postsPerPage)
+    // Create paginated posts when enabled, disabled by default. Set value of USE_PAGINATION to 'true' in env
+    if (typeof process.env.USE_PAGINATION !== 'undefined' && process.env.USE_PAGINATION === 'true') {
+      const posts = result.data.allStrapiPosts.edges.map(post => post.node)
+      const postsPerPage = process.env.POST_PER_PAGE || 10;
+      const numPages = Math.ceil(posts.length / postsPerPage)
 
-    Array.from({ length: numPages }).forEach((_, i) => {
-      createPage({
-        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-        component: path.resolve(`./src/templates/blog-list.js`),
-        context: {
-          limit: postsPerPage,
-          skip: i * postsPerPage,
-          numPages,
-          currentPage: i + 1,
-        },
+      Array.from({ length: numPages }).forEach((_, i) => {
+        createPage({
+          path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+          component: path.resolve(`./src/templates/post/list.js`),
+          context: {
+            limit: postsPerPage,
+            skip: i * postsPerPage,
+            numPages,
+            currentPage: i + 1,
+          },
+        })
       })
-    })
+    }
   })
 
   return Promise.all([getPosts])
@@ -86,4 +89,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: slugify_title,
     })
   }
+}
+
+// Write site admin URL on post build
+exports.onPostBuild = () => {
+  console.log(process.env)
+  fs.writeFile('./public/site.json', JSON.stringify({ "siteAdminUrl": process.env.API_URL + '/admin' }), 'utf8', function(err) {
+    console.log(err)
+  })
 }

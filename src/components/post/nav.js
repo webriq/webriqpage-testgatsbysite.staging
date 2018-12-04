@@ -1,7 +1,12 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import style from './nav.module.css'
 
 export default ({ pageContext }) => {
+  if (typeof process.env.USE_PAGINATION === 'undefined') {
+    return (<></>)
+  }
+
   const { currentPage, numPages } = pageContext
   const pathPrefix = '/blog/'
   const isFirst = currentPage === 1
@@ -13,16 +18,7 @@ export default ({ pageContext }) => {
   const nextPage = pathPrefix + (currentPage + 1).toString()
 
   return (
-    <ul
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        listStyle: 'none',
-        padding: 0,
-      }}
-    >
+    <ul className={style.navList}>
       {!isFirst && (
         <Link to={prevPage} rel="prev">
           ← Previous Page
@@ -31,18 +27,14 @@ export default ({ pageContext }) => {
       {Array.from({ length: numPages }, (_, i) => (
         <li
           key={`pagination-number${i + 1}`}
-          style={{
-            margin: 0,
-          }}
+          className={style.navItem}
         >
           <Link
             to={`/blog/${i === 0 ? '' : i + 1}`}
+            className={style.navLink}
             style={{
-              padding: 20,
-              textDecoration: 'none',
               color: i + 1 === currentPage ? '#ffffff' : '',
               background: i + 1 === currentPage ? '#007acc' : '',
-              marginBottom: 20,
             }}
           >
             {i + 1}

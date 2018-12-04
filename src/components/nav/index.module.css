@@ -1,0 +1,8 @@
+.nav {
+  display: 1;
+}
+
+  .nav a {
+    padding: 0 20px;
+    text-decoration: none;
+  }
